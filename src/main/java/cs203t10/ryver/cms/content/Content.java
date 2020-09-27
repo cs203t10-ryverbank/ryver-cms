@@ -26,11 +26,11 @@ public class Content {
     private Integer id;
 
     @NotNull(message = "Content's title cannot be null")
-    @Size(min = 10, max = 50, message = "Content's title should be between 10 and 50 characters")
+    @Size(min = 5, max = 50, message = "Content's title should be between 5 and 50 characters")
     private String title;
 
     @NotNull(message = "Content's summary cannot be null")
-    @Size(min = 10, max = 100, message = "Content's summary should be between 10 and 100 characters")
+    @Size(min = 5, max = 100, message = "Content's summary should be between 5 and 100 characters")
     private String summary;
 
     @NotNull(message = "Content's content body cannot be null")

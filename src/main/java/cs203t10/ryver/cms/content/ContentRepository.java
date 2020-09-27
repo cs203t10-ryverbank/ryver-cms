@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ContentRepository extends JpaRepository<Content, Integer> {
     List <Content> findByTitle(String title);
+
+    List<Content> findByApproved(Boolean approved);
 }
 

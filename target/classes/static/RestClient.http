@@ -10,11 +10,11 @@ Accept: application/json
 GET http://localhost:8082/contents
 Accept: application/json
 # Token generated with manager account.
-Authorization: Bearer ...
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW5hZ2VyXzEiLCJ1aWQiOjEsImF1dGgiOiJST0xFX01BTkFHRVIiLCJleHAiOjE2MDIwMTA2NTh9.mEsdmaAh8nvP1pmVhWIOmzDxwvd3HmsnZ5yTDDrWwGSBWPfWPLyN-q8ZmNjZD7k5fDk67S4QTj4kaKbU3-__4A
 
 ###
 GET http://localhost:8082/contents/
 Accept: application/json
 # Token generated with analyst account.
-Authorization: Bearer ...
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFseXN0XzEiLCJ1aWQiOjIsImF1dGgiOiJST0xFX0FOQUxZU1QiLCJleHAiOjE2MDIwMTA3MDB9.cJkDUpP88aLMIXqDWx1_lHYuyzFvdS9kAS0KNPJfAEaD7k1EWOawsERg7oFpZTuLdnk0WSMWTz-_xzANl6Nw7w
 

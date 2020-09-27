@@ -16,8 +16,14 @@ public class ContentController {
 
     @GetMapping("/contents")
     public List<Content> getContents() {
-        return contentService.listContents();
+        return contentService.listApprovedContents(true);
     }
+
+    // @GetMapping("/contents")
+    // @RolesAllowed("MANAGER")
+    // public List<Content> getContents() {
+    //      return contentService.listContents();
+    // }
 
     @PutMapping("/contents/{id}")
     @RolesAllowed("MANAGER")
@@ -27,7 +33,5 @@ public class ContentController {
         
         return content;
     }
-
-
 }
 

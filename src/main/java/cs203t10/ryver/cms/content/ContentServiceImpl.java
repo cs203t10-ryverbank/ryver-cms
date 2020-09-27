@@ -18,6 +18,11 @@ public class ContentServiceImpl implements ContentService {
         return contents.findAll();
     }
 
+    @Override
+    public List<Content> listApprovedContents(Boolean approved) {
+        return contents.findByApproved(approved);
+    }
+
     
     @Override
     public Content getContent(Integer id){
@@ -40,7 +45,5 @@ public class ContentServiceImpl implements ContentService {
         }).orElse(null);
 
     }
-
-   
 
 }
