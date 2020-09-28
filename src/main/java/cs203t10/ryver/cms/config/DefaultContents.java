@@ -30,9 +30,24 @@ public class DefaultContents implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        addDefaultContent(Content.builder().title("Post 1").summary("Post 1 is about Post 1").content("Post 1 has a lot to say about Post 1").approved(true).build());
-        addDefaultContent(Content.builder().title("Post 2").summary("Post 2 is about Post 2").content("Post 2 has not much to say about Post 2").approved(true).build());
-        addDefaultContent(Content.builder().title("Post 3").summary("Post 3 is not approved").content("Post 3 is not approved!").approved(false).build());
+        addDefaultContent(Content.builder()
+            .title("BoomerProperty stocks are booming")
+            .summary("Property prices have been going through the roof")
+            .content("Buy stocks from BoomerProperty")
+            .approved(true)
+            .build());
+        addDefaultContent(Content.builder()
+            .title("WestProperty prices are plunging")
+            .summary("Due to management issues and poor maintenance, investors are selling stocks fast")
+            .content("Sell stocks from WestProperty")
+            .approved(true)
+            .build());
+        addDefaultContent(Content.builder()
+            .title("Conspiracy Theory: Property Market Collapse")
+            .summary("Property tax is slated to increase and housing loans are rumoured to double")
+            .content("Don't buy anything!")
+            .approved(false)
+            .build());
     }
 
     public void addDefaultContent(Content content) {
