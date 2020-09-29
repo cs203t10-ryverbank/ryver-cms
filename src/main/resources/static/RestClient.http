@@ -19,13 +19,13 @@ Accept: application/json
 #Basic user view of CMS - retrieve unapproved content
 
 ###
-GET http://localhost:8082/contents/3
+GET http://localhost:8082/contents/4
 Accept: application/json
 # Manager view of CMS - retrieve unapproved content
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW5hZ2VyXzEiLCJ1aWQiOjEsImF1dGgiOiJST0xFX01BTkFHRVIiLCJleHAiOjE2MDIxNjE5NzN9.PsyCqL35GKI037HLjyMYV-ePdfg_73XnMc8SAjPJ5eoTnVlas_MFH1U40fiCxgfNGQ-pqKe7nscEaVeVcub1rw
 
 ###
-PUT http://localhost:8082/contents/3
+PUT http://localhost:8082/contents/manager/12
 Accept: application/json
 # Manager approves unapproved content
 Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtYW5hZ2VyXzEiLCJ1aWQiOjEsImF1dGgiOiJST0xFX01BTkFHRVIiLCJleHAiOjE2MDIxNjE5NzN9.PsyCqL35GKI037HLjyMYV-ePdfg_73XnMc8SAjPJ5eoTnVlas_MFH1U40fiCxgfNGQ-pqKe7nscEaVeVcub1rw
@@ -40,4 +40,23 @@ Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFseXN0X
     "title": "New 5G technology for Telcos ",
     "summary": "Stock prices for HubStar and 1M has been rising",
     "content": "Buy HubStar and 1M now!"
+}
+
+###
+DELETE http://localhost:8082/contents/11
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFseXN0XzEiLCJ1aWQiOjIsImF1dGgiOiJST0xFX0FOQUxZU1QiLCJleHAiOjE2MDIyMTUzNjB9.BDipZ_Dp6ipekzC0yd4WmA3MlZVbUbampQgp_BCc49cAzVRxsHgK_CxnFn57VmQDyGgvG6VPJ6VLHd05ZJ8qug
+# Analyst deletes unapproved content
+
+
+###
+PUT http://localhost:8082/contents/12
+Content-Type: application/json
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhbmFseXN0XzEiLCJ1aWQiOjIsImF1dGgiOiJST0xFX0FOQUxZU1QiLCJleHAiOjE2MDIyMTUzNjB9.BDipZ_Dp6ipekzC0yd4WmA3MlZVbUbampQgp_BCc49cAzVRxsHgK_CxnFn57VmQDyGgvG6VPJ6VLHd05ZJ8qug
+# Analyst updates unapproved content
+
+{
+    "title": "Apple Inc ETFs",
+    "summary": "Stock prices has been rising",
+    "content": "Buy Apple Inc ETFs now!"
 }

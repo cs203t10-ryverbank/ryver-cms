@@ -3,6 +3,9 @@ package cs203t10.ryver.cms.content;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
+import cs203t10.ryver.cms.content.ContentException.ContentNotFoundException;
+import cs203t10.ryver.cms.content.view.ContentInfo;
+import cs203t10.ryver.cms.util.CustomBeanUtils;
 
 @Service
 public class ContentServiceImpl implements ContentService {
@@ -55,6 +58,24 @@ public class ContentServiceImpl implements ContentService {
             return contents.save(content);
         }).orElse(null);
 
+    }
+
+    @Override
+    public void deleteContent(Integer id) {
+        contents.delete(getContent(id));
+    }
+
+    @Override
+    public Content updateContent(Integer id, Content newContentInfo) {
+        return contents.findById(id).map(content -> {
+            // Copy over non-null values only.
+            CustomBeanUtils.copyNonNullProperties(newContentInfo, content);
+            return contents.save(content);
+        }).orElseThrow(() -> new ContentNotFoundException(id));
+
+        // return contents.findById(id).map(content -> {contents.setTitle(newContent.getTitle());
+        //     return books.save(book);
+        // }).orElse(null);
     }
 
 }
