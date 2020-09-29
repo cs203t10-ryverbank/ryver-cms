@@ -37,3 +37,7 @@ build/
 
 ### coc.nvim ###
 .vim/
+
+
+### misc ###
+.DS_Store
