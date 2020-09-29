@@ -42,6 +42,10 @@ public class Content {
     @Builder.Default
     private boolean approved = false;
 
+    public boolean getApproved(){
+        return approved;
+    }
+
     //Additional: Do we add tags?
 }
 

@@ -19,14 +19,25 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public List<Content> listApprovedContents(Boolean approved) {
-        return contents.findByApproved(approved);
+    public List<Content> listApprovedContents() {
+        return contents.findByApproved(true);
     }
 
     
     @Override
     public Content getContent(Integer id){
         return contents.findById(id).orElse(null);
+    }
+
+    @Override
+    public Content getApprovedContent(Integer id){
+        Content content = contents.findById(id).orElse(null);
+        if (content == null || content.getApproved()){
+            return content;
+        } else{
+            //content is not approved
+            return null;
+        }
     }
     
     @Override

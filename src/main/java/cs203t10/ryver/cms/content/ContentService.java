@@ -5,8 +5,9 @@ import java.util.List;
 
 public interface ContentService {
     List<Content> listContents();
-    List<Content> listApprovedContents(Boolean approved);
+    List<Content> listApprovedContents();
     Content getContent(Integer id);
+    Content getApprovedContent(Integer id);
     Content addContent(Content content);
     Content approveContent(Integer id);
 
