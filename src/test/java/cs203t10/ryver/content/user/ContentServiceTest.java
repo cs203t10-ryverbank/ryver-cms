@@ -111,6 +111,7 @@ public class ContentServiceTest {
         ///assert***
         assertNotNull(updatedContent);
         verify(contents).findById(content.getId());
+        verify(contents).save(content);
     }
 
 }
