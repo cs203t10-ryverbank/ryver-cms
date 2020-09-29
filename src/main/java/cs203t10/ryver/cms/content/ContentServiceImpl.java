@@ -72,10 +72,6 @@ public class ContentServiceImpl implements ContentService {
             CustomBeanUtils.copyNonNullProperties(newContentInfo, content);
             return contents.save(content);
         }).orElseThrow(() -> new ContentNotFoundException(id));
-
-        // return contents.findById(id).map(content -> {contents.setTitle(newContent.getTitle());
-        //     return books.save(book);
-        // }).orElse(null);
     }
 
 }

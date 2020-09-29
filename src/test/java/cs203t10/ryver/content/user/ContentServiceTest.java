@@ -93,7 +93,7 @@ public class ContentServiceTest {
     }
 
     @Test
-    void approveContent_NewContent_ReturnApprovedContent(){
+    void updateContent_NewContent_ReturnUpdatedContent(){
         //arrange ***
         Content content = Content.builder()
             .title("[Pending Approval] Property stocks stagnating")
@@ -106,7 +106,7 @@ public class ContentServiceTest {
         when(contents.save(any(Content.class))).thenReturn(content);
         
         //act ***
-        Content updatedContent = contentService.approveContent(content.getId());
+        Content updatedContent = contentService.updateContent(content.getId(), content);
         
         ///assert***
         assertNotNull(updatedContent);

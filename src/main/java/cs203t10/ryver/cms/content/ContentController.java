@@ -50,15 +50,6 @@ public class ContentController {
         return content;
     }
 
-    @PutMapping("/contents/manager/{id}")
-    @RolesAllowed("MANAGER")
-    @ApiOperation(value = "Update content's approval status")
-    public Content approveContent(@PathVariable Integer id){
-        Content content= contentService.approveContent(id);
-        if(content == null) throw new ContentNotFoundException(id);
-        return content;
-    }
-
     @PostMapping("/contents")
     @RolesAllowed("ANALYST")
     @ApiOperation(value = "Add content")
@@ -80,16 +71,24 @@ public class ContentController {
     }
 
     @PutMapping("/contents/{id}")
-    @PreAuthorize("hasRole('ANALYST')")
-    @ApiOperation(value = "Update content's details",
-            notes = "Only fields defined in the request body will be updated.",
-            response = ContentInfoViewableByAnalyst.class)
+    @PreAuthorize("hasRole('ANALYST') or hasRole('MANAGER')")
+    @ApiOperation(value = "Update content's details")
     public Content updateContent(@PathVariable Integer id, 
             @Valid @RequestBody Content newContentInfo){
-        Content content = contentService.getContent(id);
-        content = contentService.updateContent(id, newContentInfo);
+        
+        Content content = null;
+
+        if (SecurityUtils.isManagerAuthenticated()) {
+            // Role: Manager
+            content = contentService.getApprovedContent(id);
+        } else if (SecurityUtils.isAnalystAuthenticated()) {
+            // Role: Analyst
+            content = contentService.getContent(id);
+            content = contentService.updateContent(id, newContentInfo);
+        }
         if(content == null) throw new ContentNotFoundException(id);
         return content;
     }
+
 }
 
