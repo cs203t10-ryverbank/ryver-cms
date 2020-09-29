@@ -9,10 +9,11 @@
 /Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/user/UserRepository.java
 /Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/security/SecurityConfig.java
 /Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/content/ContentRepository.java
+/Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/security/SecurityUtils.java
 /Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/user/User.java
 /Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/content/ContentController.java
-/Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/content/ContentNotFoundException.java
 /Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/security/JWTAuthenticationFilter.java
+/Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/content/ContentException.java
 /Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/user/CustomUserDetailsService.java
 /Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/config/DefaultContents.java
 /Users/sheryll/Desktop/SMU/Y2SEM1/CS203/project_/ryver-cms/src/main/java/cs203t10/ryver/cms/RyverBankCMSServiceApplication.java

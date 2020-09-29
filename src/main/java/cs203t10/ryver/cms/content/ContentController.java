@@ -21,11 +21,6 @@ public class ContentController {
     @Autowired
     private ContentService contentService;
 
-    // @GetMapping("/contents")
-    // public List<Content> getContents() {
-    //     return contentService.listApprovedContents(true);
-    // }
-
     @GetMapping("/contents")
     @PreAuthorize("principal != null or hasRole('MANAGER')")
     public List<Content> getContents() {

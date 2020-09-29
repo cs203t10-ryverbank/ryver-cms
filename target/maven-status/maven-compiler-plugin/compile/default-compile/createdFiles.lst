@@ -11,6 +11,7 @@ cs203t10/ryver/cms/content/ContentRepository.class
 cs203t10/ryver/cms/content/ContentController.class
 cs203t10/ryver/cms/security/SecurityUtils.class
 cs203t10/ryver/cms/config/DefaultUsers.class
+cs203t10/ryver/cms/config/SwaggerConfig.class
 cs203t10/ryver/cms/security/SecurityConstants.class
 cs203t10/ryver/cms/user/UserService.class
 cs203t10/ryver/cms/content/ContentException$DuplicateContentException.class
@@ -21,3 +22,4 @@ cs203t10/ryver/cms/security/SecurityConfig.class
 cs203t10/ryver/cms/user/UserRepository.class
 cs203t10/ryver/cms/content/Content$ContentBuilder.class
 cs203t10/ryver/cms/user/UserController.class
+cs203t10/ryver/cms/config/SwaggerLoginListingScanner.class

@@ -35,7 +35,7 @@ public class ContentServiceImpl implements ContentService {
         if (content == null || content.getApproved()){
             return content;
         } else{
-            //content is not approved
+            // content is not approved
             return null;
         }
     }
