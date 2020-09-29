@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import cs203t10.ryver.cms.content.ContentException.ContentNotFoundException;
 import cs203t10.ryver.cms.content.ContentException.DuplicateContentException;
 import cs203t10.ryver.cms.security.SecurityUtils;
+import io.swagger.annotations.ApiOperation;
 
 
 @RestController
@@ -23,6 +24,7 @@ public class ContentController {
 
     @GetMapping("/contents")
     @PreAuthorize("principal != null or hasRole('MANAGER')")
+    @ApiOperation(value = "Get all user content")
     public List<Content> getContents() {
         if (SecurityUtils.isManagerAuthenticated()) {
             return contentService.listContents();
@@ -34,6 +36,7 @@ public class ContentController {
 
     @GetMapping("/contents/{id}")
     @PreAuthorize("principal != null or hasRole('MANAGER')")
+    @ApiOperation(value = "Get a user's content")
     public Content getContent(@PathVariable Integer id) {
         Content content = null;
         if (SecurityUtils.isManagerAuthenticated()) {
@@ -47,6 +50,7 @@ public class ContentController {
 
     @PutMapping("/contents/{id}")
     @RolesAllowed("MANAGER")
+    @ApiOperation(value = "Update content's approval status")
     public Content approveContent(@PathVariable Integer id){
         Content content= contentService.approveContent(id);
         if(content == null) throw new ContentNotFoundException(id);
@@ -56,6 +60,7 @@ public class ContentController {
 
     @PostMapping("/contents")
     @RolesAllowed("ANALYST")
+    @ApiOperation(value = "Add content")
     @ResponseStatus(HttpStatus.CREATED)
     public Content addContent(@Valid @RequestBody Content content){
         Content addedContent = contentService.addContent(content);
