@@ -10,10 +10,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 
-import cs203t10.ryver.cms.content.view.ContentInfoViewableByAnalyst;
+import cs203t10.ryver.cms.content.view.ContentInfo;
+import cs203t10.ryver.cms.content.view.ContentInfoUpdatableByAnalyst;
+import cs203t10.ryver.cms.content.view.ContentInfoUpdatableByManager;
 import cs203t10.ryver.cms.content.ContentException.ContentNotFoundException;
 import cs203t10.ryver.cms.content.ContentException.DuplicateContentException;
 import cs203t10.ryver.cms.security.SecurityUtils;
+import cs203t10.ryver.cms.util.CustomBeanUtils;
 import io.swagger.annotations.ApiOperation;
 
 import static cs203t10.ryver.cms.content.ContentException.ContentUpdateForbiddenException;
@@ -25,10 +28,11 @@ public class ContentController {
     private ContentService contentService;
 
     @GetMapping("/contents")
-    @PreAuthorize("principal != null or hasRole('MANAGER')")
     @ApiOperation(value = "Get all user content")
     public List<Content> getContents() {
-        if (SecurityUtils.isManagerAuthenticated()) {
+        boolean isManager = SecurityUtils.isManagerAuthenticated();
+        boolean isAnalyst = SecurityUtils.isAnalystAuthenticated();
+        if (isManager || isAnalyst) {
             return contentService.listContents();
         } else {
             return contentService.listApprovedContents();
@@ -37,11 +41,12 @@ public class ContentController {
     }
 
     @GetMapping("/contents/{id}")
-    @PreAuthorize("principal != null or hasRole('MANAGER')")
     @ApiOperation(value = "Get a user's content")
     public Content getContent(@PathVariable Integer id) {
         Content content = null;
-        if (SecurityUtils.isManagerAuthenticated()) {
+        boolean isManager = SecurityUtils.isManagerAuthenticated();
+        boolean isAnalyst = SecurityUtils.isAnalystAuthenticated();
+        if (isManager || isAnalyst) {
             content = contentService.getContent(id);
         } else {
             content = contentService.getApprovedContent(id);
@@ -51,17 +56,31 @@ public class ContentController {
     }
 
     @PostMapping("/contents")
-    @RolesAllowed("ANALYST")
+    @PreAuthorize("hasRole('ANALYST') or hasRole('MANAGER')")
     @ApiOperation(value = "Add content")
     @ResponseStatus(HttpStatus.CREATED)
-    public Content addContent(@Valid @RequestBody Content content){
-        Content addedContent = contentService.addContent(content);
-        if(addedContent == null) throw new DuplicateContentException(content.getTitle());
+    public Content addContent(@Valid @RequestBody ContentInfoUpdatableByManager contentInfo){
+
+        boolean isManager = SecurityUtils.isManagerAuthenticated();
+
+        ContentInfo updatableInfo = isManager
+                ? new ContentInfoUpdatableByManager()
+                : new ContentInfoUpdatableByAnalyst();
+
+         // Check if the properties updated are permitted.
+         if (!CustomBeanUtils.nonNullIsSubsetOf(contentInfo, updatableInfo)) {
+            throw new ContentUpdateForbiddenException();
+        }
+
+        Content contentToAdd = new Content();
+        CustomBeanUtils.copyNonNullProperties(contentInfo, contentToAdd);
+        Content addedContent = contentService.addContent(contentToAdd);
+        if(addedContent == null) throw new DuplicateContentException(contentToAdd.getTitle());
         return addedContent;
     }
 
     @DeleteMapping("/contents/{id}")
-    @RolesAllowed("ANALYST")
+    @PreAuthorize("hasRole('ANALYST') or hasRole('MANAGER')")
     @ApiOperation(value = "Delete content")
     @ResponseStatus(HttpStatus.OK)
     public void deleteContent(@PathVariable Integer id){
@@ -74,20 +93,36 @@ public class ContentController {
     @PreAuthorize("hasRole('ANALYST') or hasRole('MANAGER')")
     @ApiOperation(value = "Update content's details")
     public Content updateContent(@PathVariable Integer id, 
-            @Valid @RequestBody Content newContentInfo){
+            @Valid @RequestBody(required = false) ContentInfoUpdatableByManager newContentInfo){
         
-        Content content = null;
+        Content content = contentService.getContent(id);
+        Content updatedContent = null;
+        
+        boolean isManager = SecurityUtils.isManagerAuthenticated();
 
-        if (SecurityUtils.isManagerAuthenticated()) {
-            // Role: Manager
-            content = contentService.getApprovedContent(id);
-        } else if (SecurityUtils.isAnalystAuthenticated()) {
-            // Role: Analyst
-            content = contentService.getContent(id);
-            content = contentService.updateContent(id, newContentInfo);
+        if (newContentInfo == null ){
+            if (isManager){
+                updatedContent = contentService.approveContent(id);
+                if(updatedContent == null) throw new ContentNotFoundException(id);
+                return updatedContent;
+            }
+            throw new ContentUpdateForbiddenException();
         }
-        if(content == null) throw new ContentNotFoundException(id);
-        return content;
+        
+        ContentInfo updatableInfo = isManager
+                ? new ContentInfoUpdatableByManager()
+                : new ContentInfoUpdatableByAnalyst();
+
+         // Check if the properties updated are permitted.
+         if (!CustomBeanUtils.nonNullIsSubsetOf(newContentInfo, updatableInfo)) {
+            throw new ContentUpdateForbiddenException();
+        }
+
+        updatedContent = contentService.updateContent(id, newContentInfo);
+        
+        if(updatedContent == null) throw new ContentNotFoundException(id);
+        return updatedContent;
+
     }
 
 }

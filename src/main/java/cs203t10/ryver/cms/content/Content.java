@@ -40,9 +40,9 @@ public class Content {
     private String link;
 
     @Builder.Default
-    private boolean approved = false;
+    private Boolean approved = false;
 
-    public boolean getApproved(){
+    public Boolean getApproved(){
         return approved;
     }
 

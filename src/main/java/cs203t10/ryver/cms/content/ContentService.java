@@ -2,6 +2,8 @@ package cs203t10.ryver.cms.content;
 
 import java.util.List;
 
+import cs203t10.ryver.cms.content.view.ContentInfo;
+
 
 public interface ContentService {
     List<Content> listContents();
@@ -11,5 +13,5 @@ public interface ContentService {
     Content addContent(Content content);
     Content approveContent(Integer id);
     void deleteContent(Integer id);
-    Content updateContent(Integer id, Content newContentInfo);
+    Content updateContent(Integer id, ContentInfo newContentInfo);
 }

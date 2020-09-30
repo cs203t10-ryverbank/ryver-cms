@@ -92,26 +92,4 @@ public class ContentServiceTest {
         verify(contents).findById(content.getId());
     }
 
-    @Test
-    void updateContent_NewContent_ReturnUpdatedContent(){
-        //arrange ***
-        Content content = Content.builder()
-            .title("[Pending Approval] Property stocks stagnating")
-            .summary("Property stocks are not selling at all")
-            .content("Don't buy property stocks")
-            .build();
-
-        //stubbing ***
-        when(contents.findById(content.getId())).thenReturn(Optional.of(content));
-        when(contents.save(any(Content.class))).thenReturn(content);
-        
-        //act ***
-        Content updatedContent = contentService.updateContent(content.getId(), content);
-        
-        ///assert***
-        assertNotNull(updatedContent);
-        verify(contents).findById(content.getId());
-        verify(contents).save(content);
-    }
-
 }

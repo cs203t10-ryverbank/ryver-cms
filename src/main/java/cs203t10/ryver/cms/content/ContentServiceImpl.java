@@ -66,7 +66,7 @@ public class ContentServiceImpl implements ContentService {
     }
 
     @Override
-    public Content updateContent(Integer id, Content newContentInfo) {
+    public Content updateContent(Integer id, ContentInfo newContentInfo) {
         return contents.findById(id).map(content -> {
             // Copy over non-null values only.
             CustomBeanUtils.copyNonNullProperties(newContentInfo, content);

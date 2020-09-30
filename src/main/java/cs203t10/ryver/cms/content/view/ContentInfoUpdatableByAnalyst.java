@@ -5,11 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 @Data
-public class ContentInfoViewableByAnalyst implements ContentInfo {
+public class ContentInfoUpdatableByAnalyst implements ContentInfo {
 
     @JsonProperty("id")
     private Integer id;
-
+    
     private String title;
 
     private String summary;
@@ -18,7 +18,6 @@ public class ContentInfoViewableByAnalyst implements ContentInfo {
 
     private String link;
 
-    private Boolean approved;
-
+    
 }
 
