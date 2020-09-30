@@ -35,7 +35,7 @@ public class Content {
 
     @NotNull(message = "Content's content body cannot be null")
     private String content;
-    
+
     //Questions: Can link be null? Do we need a pattern regex for link?
     private String link;
 

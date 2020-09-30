@@ -37,7 +37,7 @@ public class ContentController {
         } else {
             return contentService.listApprovedContents();
         }
-         
+
     }
 
     @GetMapping("/contents/{id}")
@@ -92,12 +92,12 @@ public class ContentController {
     @PutMapping("/contents/{id}")
     @PreAuthorize("hasRole('ANALYST') or hasRole('MANAGER')")
     @ApiOperation(value = "Update content's details")
-    public Content updateContent(@PathVariable Integer id, 
+    public Content updateContent(@PathVariable Integer id,
             @Valid @RequestBody(required = false) ContentInfoUpdatableByManager newContentInfo){
-        
+
         Content content = contentService.getContent(id);
         Content updatedContent = null;
-        
+
         boolean isManager = SecurityUtils.isManagerAuthenticated();
 
         if (newContentInfo == null ){
@@ -108,7 +108,7 @@ public class ContentController {
             }
             throw new ContentUpdateForbiddenException();
         }
-        
+
         ContentInfo updatableInfo = isManager
                 ? new ContentInfoUpdatableByManager()
                 : new ContentInfoUpdatableByAnalyst();
@@ -119,7 +119,7 @@ public class ContentController {
         }
 
         updatedContent = contentService.updateContent(id, newContentInfo);
-        
+
         if(updatedContent == null) throw new ContentNotFoundException(id);
         return updatedContent;
 
