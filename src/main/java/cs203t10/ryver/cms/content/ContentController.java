@@ -67,13 +67,9 @@ public class ContentController {
                 ? new ContentInfoUpdatableByManager()
                 : new ContentInfoUpdatableByAnalyst();
 
-         // Check if the properties updated are permitted.
-         if (!CustomBeanUtils.nonNullIsSubsetOf(contentInfo, updatableInfo)) {
-            throw new ContentUpdateForbiddenException();
-        }
-
         Content contentToAdd = new Content();
-        CustomBeanUtils.copyNonNullProperties(contentInfo, contentToAdd);
+        CustomBeanUtils.copyNonNullProperties(contentInfo, updatableInfo);
+        CustomBeanUtils.copyNonNullProperties(updatableInfo, contentToAdd);
         Content addedContent = contentService.addContent(contentToAdd);
         if(addedContent == null) throw new DuplicateContentException(contentToAdd.getTitle());
         return addedContent;
@@ -113,12 +109,8 @@ public class ContentController {
                 ? new ContentInfoUpdatableByManager()
                 : new ContentInfoUpdatableByAnalyst();
 
-         // Check if the properties updated are permitted.
-         if (!CustomBeanUtils.nonNullIsSubsetOf(newContentInfo, updatableInfo)) {
-            throw new ContentUpdateForbiddenException();
-        }
-
-        updatedContent = contentService.updateContent(id, newContentInfo);
+        CustomBeanUtils.copyNonNullProperties(newContentInfo, updatableInfo);
+        updatedContent = contentService.updateContent(id, updatableInfo);
 
         if(updatedContent == null) throw new ContentNotFoundException(id);
         return updatedContent;
