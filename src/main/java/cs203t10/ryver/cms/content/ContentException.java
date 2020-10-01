@@ -29,7 +29,7 @@ public class ContentException {
         
     }
 
-    @ResponseStatus(value = HttpStatus.OK, reason = "Property Update Expection")
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST, reason = "Property Update Exception")
     public static class ContentUpdateForbiddenException extends RuntimeException {
         private static final long serialVersionUID = 1L;
     }

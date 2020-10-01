@@ -6,7 +6,6 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import cs203t10.ryver.cms.content.Content;
-import cs203t10.ryver.cms.content.ContentRepository;
 import cs203t10.ryver.cms.content.ContentService;
 @Component
 @Order(2)
