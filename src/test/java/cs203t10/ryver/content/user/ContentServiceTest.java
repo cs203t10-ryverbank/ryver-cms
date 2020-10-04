@@ -1,6 +1,7 @@
 package cs203t10.ryver.cms.content;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -10,6 +11,8 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import cs203t10.ryver.cms.content.view.ContentInfoUpdatableByManager;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -90,6 +93,34 @@ public class ContentServiceTest {
         //assert ***
         assertNull(updatedContent);
         verify(contents).findById(content.getId());
+    }
+
+    @Test
+    void updateContent_NewContent_ReturnUpdatedContent(){
+        //arrange ***
+        Content content = Content.builder()
+            .title("[Pending Approval] Property stocks stagnating")
+            .summary("Property stocks are not selling at all")
+            .content("Don't buy property stocks")
+            .build();
+
+        
+        ContentInfoUpdatableByManager contentUpdate = new ContentInfoUpdatableByManager();
+        contentUpdate.setTitle("Property stocks stagnating");
+
+
+        //stubbing ***
+        when(contents.findById(content.getId())).thenReturn(Optional.of(content));
+        when(contents.save(any(Content.class))).thenReturn(content);
+        
+        //act ***
+        Content updatedContent = contentService.updateContent(content.getId(), contentUpdate);
+        
+        ///assert***
+        assertNotNull(updatedContent);
+        assertEquals(updatedContent.getTitle(), content.getTitle());
+        verify(contents).findById(content.getId());
+        verify(contents).save(content);
     }
 
 }
