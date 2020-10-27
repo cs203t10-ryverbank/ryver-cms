@@ -9,9 +9,9 @@ import cs203t10.ryver.cms.util.CustomBeanUtils;
 
 @Service
 public class ContentServiceImpl implements ContentService {
-   
+
     private ContentRepository contents;
-    
+
     public ContentServiceImpl(ContentRepository contents){
         this.contents = contents;
     }
@@ -26,7 +26,7 @@ public class ContentServiceImpl implements ContentService {
         return contents.findByApproved(true);
     }
 
-    
+
     @Override
     public Content getContent(Integer id){
         return contents.findById(id).orElse(null);
@@ -42,7 +42,7 @@ public class ContentServiceImpl implements ContentService {
             return null;
         }
     }
-    
+
     @Override
     public Content addContent(Content content) {
         List<Content> sameTitles = contents.findByTitle(content.getTitle());
@@ -51,7 +51,7 @@ public class ContentServiceImpl implements ContentService {
         else
             return null;
     }
-    
+
     @Override
     public Content approveContent(Integer id){
         return contents.findById(id).map( content -> {content.setApproved(true);
@@ -72,6 +72,11 @@ public class ContentServiceImpl implements ContentService {
             CustomBeanUtils.copyNonNullProperties(newContentInfo, content);
             return contents.save(content);
         }).orElseThrow(() -> new ContentNotFoundException(id));
+    }
+
+    @Override
+    public void resetContents(){
+        contents.deleteAll();
     }
 
 }

@@ -13,5 +13,6 @@ public interface ContentService {
     Content addContent(Content content);
     Content approveContent(Integer id);
     void deleteContent(Integer id);
+    void resetContents();
     Content updateContent(Integer id, ContentInfo newContentInfo);
 }
