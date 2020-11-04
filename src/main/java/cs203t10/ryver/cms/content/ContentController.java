@@ -13,6 +13,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import cs203t10.ryver.cms.content.view.ContentInfo;
 import cs203t10.ryver.cms.content.view.ContentInfoUpdatableByAnalyst;
 import cs203t10.ryver.cms.content.view.ContentInfoUpdatableByManager;
+import cs203t10.ryver.cms.config.DefaultContents;
 import cs203t10.ryver.cms.content.ContentException.ContentNotFoundException;
 import cs203t10.ryver.cms.content.ContentException.DuplicateContentException;
 import cs203t10.ryver.cms.security.SecurityUtils;
@@ -26,6 +27,9 @@ public class ContentController {
 
     @Autowired
     private ContentService contentService;
+
+    @Autowired
+    private DefaultContents defaultContents;
 
     @GetMapping("/contents")
     @ApiOperation(value = "Get all user content")
@@ -122,6 +126,11 @@ public class ContentController {
 	@RolesAllowed("MANAGER")
 	public void resetContents() {
 		contentService.resetContents();
+        try {
+            defaultContents.run();
+        } catch (Exception e) {
+            System.out.println("Could not add default contents");
+        }
 	}
 
 }

@@ -1,8 +1,11 @@
 package cs203t10.ryver.cms.content;
 
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cs203t10.ryver.cms.config.DefaultContents;
 import cs203t10.ryver.cms.content.ContentException.ContentNotFoundException;
 import cs203t10.ryver.cms.content.view.ContentInfo;
 import cs203t10.ryver.cms.util.CustomBeanUtils;
@@ -10,11 +13,11 @@ import cs203t10.ryver.cms.util.CustomBeanUtils;
 @Service
 public class ContentServiceImpl implements ContentService {
 
+    @Autowired
     private ContentRepository contents;
 
-    public ContentServiceImpl(ContentRepository contents){
-        this.contents = contents;
-    }
+    @Autowired
+    private DefaultContents defaultContents;
 
     @Override
     public List<Content> listContents() {
