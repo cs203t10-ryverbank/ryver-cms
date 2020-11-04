@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -22,17 +23,21 @@ public class Content {
     private Integer id;
 
     @NotNull(message = "Content's title cannot be null")
-    @Size(min = 5, max = 50, message = "Content's title should be between 5 and 50 characters")
+    // @Size(min = 5, max = 50, message = "Content's title should be between 5 and 50 characters")
+    @Lob
     private String title;
 
     @NotNull(message = "Content's summary cannot be null")
-    @Size(min = 5, max = 100, message = "Content's summary should be between 5 and 100 characters")
+    // @Size(min = 5, max = 100, message = "Content's summary should be between 5 and 100 characters")
+    @Lob
     private String summary;
 
     @NotNull(message = "Content's content body cannot be null")
+    @Lob
     private String content;
 
     //Questions: Can link be null? Do we need a pattern regex for link?
+    @Lob
     private String link;
 
     @Builder.Default
