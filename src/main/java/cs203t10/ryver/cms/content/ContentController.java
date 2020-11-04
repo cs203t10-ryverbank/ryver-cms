@@ -17,7 +17,9 @@ import cs203t10.ryver.cms.content.ContentException.ContentNotFoundException;
 import cs203t10.ryver.cms.content.ContentException.DuplicateContentException;
 import cs203t10.ryver.cms.security.SecurityUtils;
 import cs203t10.ryver.cms.util.CustomBeanUtils;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import static cs203t10.ryver.cms.content.ContentException.ContentUpdateForbiddenException;
 
@@ -28,7 +30,10 @@ public class ContentController {
     private ContentService contentService;
 
     @GetMapping("/contents")
-    @ApiOperation(value = "Get all user content")
+    @Operation(summary = "Get all user content")
+    @ApiResponse(responseCode = "200", 
+                content = @io.swagger.v3.oas.annotations.media.Content(mediaType = "application/json", 
+                schema = @Schema(implementation = Content[].class)))
     public List<Content> getContents() {
         boolean isManager = SecurityUtils.isManagerAuthenticated();
         boolean isAnalyst = SecurityUtils.isAnalystAuthenticated();
@@ -41,7 +46,10 @@ public class ContentController {
     }
 
     @GetMapping("/contents/{id}")
-    @ApiOperation(value = "Get a user's content")
+    @Operation(summary = "Get a user's content")
+    @ApiResponse(responseCode = "200", 
+                content = @io.swagger.v3.oas.annotations.media.Content(mediaType = "application/json", 
+                schema = @Schema(implementation = Content.class)))
     public Content getContent(@PathVariable Integer id) {
         Content content = null;
         boolean isManager = SecurityUtils.isManagerAuthenticated();
@@ -57,7 +65,10 @@ public class ContentController {
 
     @PostMapping("/contents")
     @PreAuthorize("hasRole('ANALYST') or hasRole('MANAGER')")
-    @ApiOperation(value = "Add content")
+    @Operation(summary = "Add content")
+    @ApiResponse(responseCode = "201", 
+                content = @io.swagger.v3.oas.annotations.media.Content(mediaType = "application/json", 
+                schema = @Schema(implementation = Content.class)))
     @ResponseStatus(HttpStatus.CREATED)
     public Content addContent(@Valid @RequestBody ContentInfoUpdatableByManager contentInfo){
 
@@ -77,7 +88,8 @@ public class ContentController {
 
     @DeleteMapping("/contents/{id}")
     @PreAuthorize("hasRole('ANALYST') or hasRole('MANAGER')")
-    @ApiOperation(value = "Delete content")
+    @Operation(summary = "Delete content")
+    @ApiResponse(responseCode = "200")
     @ResponseStatus(HttpStatus.OK)
     public void deleteContent(@PathVariable Integer id){
         Content content = contentService.getContent(id);
@@ -87,7 +99,10 @@ public class ContentController {
 
     @PutMapping("/contents/{id}")
     @PreAuthorize("hasRole('ANALYST') or hasRole('MANAGER')")
-    @ApiOperation(value = "Update content's details")
+    @Operation(summary = "Update content's details")
+    @ApiResponse(responseCode = "200", 
+                content = @io.swagger.v3.oas.annotations.media.Content(mediaType = "application/json", 
+                schema = @Schema(implementation = Content.class)))
     public Content updateContent(@PathVariable Integer id,
             @Valid @RequestBody(required = false) ContentInfoUpdatableByManager newContentInfo){
 
@@ -119,7 +134,8 @@ public class ContentController {
 
     @ResponseStatus(HttpStatus.OK)
 	@PostMapping("/reset")
-	@RolesAllowed("MANAGER")
+    @RolesAllowed("MANAGER")
+    @Operation(summary = "Reset the service.")
 	public void resetContents() {
 		contentService.resetContents();
 	}
