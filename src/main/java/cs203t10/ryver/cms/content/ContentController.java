@@ -17,6 +17,7 @@ import cs203t10.ryver.cms.content.ContentException.ContentNotFoundException;
 import cs203t10.ryver.cms.content.ContentException.DuplicateContentException;
 import cs203t10.ryver.cms.security.SecurityUtils;
 import cs203t10.ryver.cms.util.CustomBeanUtils;
+import io.swagger.v3.oas.annotations.Hidden;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
