@@ -10,7 +10,7 @@ import io.swagger.v3.oas.annotations.info.Info;
 import io.swagger.v3.oas.annotations.security.SecurityScheme;
 
 @Configuration
-@OpenAPIDefinition(info = @Info(title = "Ryver CMS", version = "0.0.1", description = "The content management service for Ryver Bank API"))
+@OpenAPIDefinition(info = @Info(title = "Ryver Content Management System (CMS)", version = "0.0.1", description = "The content management service for Ryver Bank API"))
 @SecurityScheme(
     name = "bearerAuth",
     type = SecuritySchemeType.HTTP,

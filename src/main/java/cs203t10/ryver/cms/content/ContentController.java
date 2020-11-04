@@ -135,7 +135,7 @@ public class ContentController {
     @ResponseStatus(HttpStatus.OK)
 	@PostMapping("/reset")
     @RolesAllowed("MANAGER")
-    @Operation(summary = "Reset the service.")
+    @Hidden
 	public void resetContents() {
 		contentService.resetContents();
 	}
