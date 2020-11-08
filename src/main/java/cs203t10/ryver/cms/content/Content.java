@@ -23,12 +23,10 @@ public class Content {
     private Integer id;
 
     @NotNull(message = "Content's title cannot be null")
-    // @Size(min = 5, max = 50, message = "Content's title should be between 5 and 50 characters")
     @Lob
     private String title;
 
     @NotNull(message = "Content's summary cannot be null")
-    // @Size(min = 5, max = 100, message = "Content's summary should be between 5 and 100 characters")
     @Lob
     private String summary;
 
@@ -36,7 +34,6 @@ public class Content {
     @Lob
     private String content;
 
-    //Questions: Can link be null? Do we need a pattern regex for link?
     @Lob
     private String link;
 
@@ -47,6 +44,5 @@ public class Content {
         return approved;
     }
 
-    //Additional: Do we add tags?
 }
 
